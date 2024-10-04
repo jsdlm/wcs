@@ -66,8 +66,8 @@ Amass
 
 ```bash
 # gobuster : Bruteforce des répertoires et fichiers.
-gobuster dir -u http://target.com -w /path/to/wordlist.txt
-gobuster dir -u <url> -w /usr/share/wordlists/dirb/<wordlistsouhaité>
+gobuster dir -u http://target.com -w /path/to/wordlist.txt -f
+gobuster dir -u <url> -w /usr/share/wordlists/dirb/<wordlistsouhaité> -f
 
 # ffuf : Outil flexible et rapide pour bruteforcer des répertoires ou des paramètres.
 ffuf -u http://target.com/FUZZ -w /path/to/wordlist.txt
