@@ -76,6 +76,7 @@ ffuf -u <url> -w /usr/share/seclists/Discovery/Web-Content/common.txt -r -t 7 -r
 # Scan SSL
 sslscan target.com
 ./testssl.sh target.com
+sslyse IP_addr
 
 # Nikto : Scan des vulnérabilités web.
 nikto -h http://target.com
